@@ -53,7 +53,9 @@ const ProfileImage = styled.div`
 `;
 
 const TextWrapper = styled.div`
-  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Name = styled.h1`

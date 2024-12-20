@@ -1,14 +1,12 @@
 import { Outlet } from "react-router-dom";
-import BlogHeader from "../components/Blog/BlogHeader";
-import BlogSidebar from "../components/Blog/BlogSidebar";
 import styled from "styled-components";
+import IntroHeader from "../components/Intro/IntroHeader";
 
-const BlogLayout = () => {
+const IntroLayout = () => {
   return (
     <Container>
-      <BlogHeader />
+      <IntroHeader />
       <Main>
-        <BlogSidebar />
         <Outlet />
       </Main>
     </Container>
@@ -19,4 +17,4 @@ const Container = styled.div``;
 
 const Main = styled.div``;
 
-export default BlogLayout;
+export default IntroLayout;

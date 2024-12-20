@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
-const BlogHeader = () => {
+const IntroHeader = () => {
   const navigate = useNavigate();
 
   return (
     <Head>
-      <BlogText onClick={() => navigate("/")}>mlnl BLOG</BlogText>
+      <IntroText onClick={() => navigate("/")}>mlnl</IntroText>
     </Head>
   );
 };
@@ -20,10 +20,10 @@ const Head = styled.div`
   border-width: 0px 0px 2px 0px;
 `;
 
-const BlogText = styled.h1`
+const IntroText = styled.h1`
   padding: 10px 30px;
   font-size: 20px;
   cursor: pointer;
 `;
 
-export default BlogHeader;
+export default IntroHeader;

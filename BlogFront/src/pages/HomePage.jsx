@@ -10,7 +10,7 @@ const HomePage = () => {
       <Card>
         <ProfileImage />
         <TextWrapper>
-          <Name>SeungMin Oh</Name>
+          <Name onClick={() => navigate("/intro")}>SeungMin Oh</Name>
           <Title>Web Designer</Title>
           <Location>Anyang Gyeongi, South Korea</Location>
           <Buttons>

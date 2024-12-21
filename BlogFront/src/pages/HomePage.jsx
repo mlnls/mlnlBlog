@@ -28,7 +28,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 95vh;
+  height: 100vh;
   background-color: #f7f7f7;
 `;
 
@@ -42,6 +42,8 @@ const Card = styled.div`
   width: 835px;
   height: 330px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: solid;
+  border-width: 2px;
 `;
 
 const ProfileImage = styled.div`
@@ -63,6 +65,7 @@ const Name = styled.h1`
   margin: 0;
   color: #000000;
   padding: 0 0 20px 0;
+  cursor: pointer;
 `;
 
 const Title = styled.p`

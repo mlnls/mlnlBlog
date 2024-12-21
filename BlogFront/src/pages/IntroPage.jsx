@@ -32,7 +32,7 @@ const IntroPage = () => {
 
       <Section>
         <Card>
-          <CardHeader>Tech Skills</CardHeader>
+          <SkillHeader>Tech Skills</SkillHeader>
           <SkillGrid>
             <SkillCard>
               <SkillTitle>Languages</SkillTitle>
@@ -90,6 +90,7 @@ const IntroPage = () => {
 const Container = styled.div`
   padding: 20px;
   background-color: #f7f7f7;
+  height: 88vh;
 `;
 
 const Section = styled.div`
@@ -107,8 +108,11 @@ const Card = styled.div`
   background-color: #e0e0e0;
   border-radius: 20px;
   padding: 20px;
-  width: 48%;
+  width: 100%;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 30px;
+  border: solid;
+  border-width: 2px;
 
   @media (max-width: 768px) {
     width: 100%;
@@ -119,7 +123,20 @@ const CardHeader = styled.h2`
   font-size: 20px;
   margin-bottom: 20px;
   color: #333;
-  font-family: "Josefin Slab", serif;
+  background-color: white;
+  border-radius: 20px;
+  padding: 15px;
+  margin: 0 500px 30px 0;
+`;
+
+const SkillHeader = styled.h2`
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+  background-color: white;
+  padding: 15px;
+  margin: 0 1250px 30px 0;
+  border-radius: 20px;
 `;
 
 const CardContent = styled.div`
@@ -132,6 +149,7 @@ const ListItem = styled.div`
   strong {
     display: block;
     color: #000;
+    padding: 10px 0 5px 0;
   }
   span {
     font-size: 14px;
@@ -141,7 +159,7 @@ const ListItem = styled.div`
 
 const SkillGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 20px;
 
   @media (max-width: 768px) {

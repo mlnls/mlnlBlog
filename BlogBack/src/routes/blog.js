@@ -1,6 +1,8 @@
 const express = require("express");
 const BlogPost = require("../models/BlogPost");
 const router = express.Router();
+const cryptoJs = require("crypto-js");
+require("dotenv").config();
 
 // 블로그 목록 조회
 router.get("/", async (req, res) => {
@@ -31,8 +33,17 @@ router.get("/category/:category", async (req, res) => {
 // 새 블로그 등록
 router.post("/add", async (req, res) => {
   try {
-    const newPost = new BlogPost(req.body);
+    const generatedID = cryptoJs
+      .SHA256(Date.now() + req.body.content + process.env.ENC_KEY)
+      .toString();
+
+    const newPost = new BlogPost({
+      ...req.body,
+      blogID: generatedID,
+      dateat: Date.now(),
+    });
     await newPost.save();
+
     res
       .status(201)
       .json({ message: "Blog post created successfully", post: newPost });
@@ -46,7 +57,7 @@ router.post("/add", async (req, res) => {
 // 블로그 삭제
 router.delete("/delete/:id", async (req, res) => {
   try {
-    const deleted = await BlogPost.findOneAndDelete({ postID: req.params.id });
+    const deleted = await BlogPost.findOneAndDelete({ blogID: req.params.id });
     if (!deleted) return res.status(404).json({ message: "Post not found" });
     res.status(200).json({ message: "Blog post deleted successfully" });
   } catch (err) {
@@ -60,7 +71,7 @@ router.delete("/delete/:id", async (req, res) => {
 router.put("/update/:id", async (req, res) => {
   try {
     const updated = await BlogPost.findOneAndUpdate(
-      { postID: req.params.id },
+      { blogID: req.params.id },
       req.body,
       { new: true }
     );

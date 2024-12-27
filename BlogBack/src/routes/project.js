@@ -1,6 +1,8 @@
 const express = require("express");
 const ProjectPost = require("../models/ProjectPost");
 const router = express.Router();
+const cryptoJs = require("crypto-js");
+require("dotenv").config();
 
 // 프로젝트 목록 조회
 router.get("/", async (req, res) => {
@@ -30,8 +32,17 @@ router.get("/:id", async (req, res) => {
 // 새 프로젝트 등록
 router.post("/add", async (req, res) => {
   try {
-    const newProject = new ProjectPost(req.body);
+    const generatedID = cryptoJs
+      .SHA256(Date.now() + req.body.content + process.env.ENC_KEY)
+      .toString();
+
+    const newProject = new ProjectPost({
+      ...req.body,
+      projectID: generatedID,
+      dateat: Date.now(),
+    });
     await newProject.save();
+
     res.status(201).json({
       message: "Project post created successfully",
       project: newProject,

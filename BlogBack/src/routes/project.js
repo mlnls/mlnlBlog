@@ -33,7 +33,7 @@ router.get("/:id", async (req, res) => {
 router.post("/add", async (req, res) => {
   try {
     const generatedID = cryptoJs
-      .SHA256(Date.now() + req.body.content + process.env.ENC_KEY)
+      .SHA256(Date.now() + req.body.title + process.env.ENC_KEY)
       .toString();
 
     const newProject = new ProjectPost({

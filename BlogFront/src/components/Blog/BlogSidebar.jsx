@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 
 const BlogSidebar = () => {
+  const navigate = useNavigate();
+
   return (
     <Side>
-      <ImageContainer>
+      <ImageContainer onClick={() => navigate("/intro")}>
         <Image />
         <Name>SeungMin Oh</Name>
       </ImageContainer>
@@ -15,14 +18,14 @@ const BlogSidebar = () => {
 
 const Side = styled.div`
   width: 260px;
-  height: 92vh;
+  height: 100%;
   background-color: #f0efef;
   border: solid;
   border-width: 0 2px 0 0;
 `;
 
 const ImageContainer = styled.div`
-  height: 270px;
+  height: 33%;
   border: solid;
   border-width: 0 0 2px 0;
   justify-items: center;

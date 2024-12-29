@@ -9,14 +9,27 @@ const BlogLayout = () => {
       <BlogHeader />
       <Main>
         <BlogSidebar />
-        <Outlet />
+        <ContentArea>
+          <Outlet />
+        </ContentArea>
       </Main>
     </Container>
   );
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+`;
 
-const Main = styled.div``;
+const Main = styled.div`
+  display: flex;
+  flex: 1;
+`;
+
+const ContentArea = styled.div`
+  flex: 1;
+`;
 
 export default BlogLayout;

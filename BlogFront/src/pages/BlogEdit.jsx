@@ -8,7 +8,6 @@ import Swal from "sweetalert2";
 const BlogEdit = () => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
-  const [category, setCategory] = useState("");
 
   const navigate = useNavigate();
 
@@ -30,21 +29,58 @@ const BlogEdit = () => {
   };
 
   const handleClick = async (e) => {
-    const postData = {
-      title: title,
-      content: content,
-      category: category,
-    };
+    if (!title || !content) {
+      showAlert("입력 오류", "제목과 내용을 입력하세요.", "warning");
+      return;
+    }
 
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACK_URL}/blog/add`,
-        postData
-      );
-      showAlert("등록 완료!", "포스팅이 완료되었습니다.", "success");
-      navigate("/blog");
-    } catch (e) {
-      showAlert("에러 발생..", "오류가 발생했습니다.", "error");
+    // SweetAlert2로 카테고리 선택
+    const { value: selectedCategory } = await Swal.fire({
+      title: "Select a category",
+      input: "select",
+      inputOptions: {
+        1: "C / C++",
+        2: "Python",
+        3: "JavaScript",
+        4: "CS",
+        5: "Algorithm - Concept",
+        6: "Algorithm - Solving",
+        7: "Network",
+        8: "FE - Concept",
+        9: "FE - TroubleShooting",
+        10: "BE - Concept",
+        11: "BE - TroubleShooting",
+        12: "Security",
+      },
+      inputPlaceholder: "Choose a category",
+      showCancelButton: true,
+      confirmButtonText: "확인",
+      cancelButtonText: "취소",
+      preConfirm: (value) => {
+        if (!value) {
+          Swal.showValidationMessage("카테고리를 선택해주세요!");
+        }
+        return value;
+      },
+    });
+
+    if (selectedCategory) {
+      const postData = {
+        title: title,
+        content: content,
+        category: selectedCategory,
+      };
+
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BACK_URL}/blog/add`,
+          postData
+        );
+        showAlert("등록 완료!", "포스팅이 완료되었습니다.", "success");
+        navigate("/blog");
+      } catch (e) {
+        showAlert("에러 발생..", "오류가 발생했습니다.", "error");
+      }
     }
   };
 

@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage";
 import IntroPage from "./pages/IntroPage";
 
 import BlogEdit from "./pages/BlogEdit";
+import BlogLists from "./pages/BlogLists";
 
 import BlogLayout from "./layout/BlogLayout";
 import ProjectLayout from "./layout/ProjectLayout";
@@ -17,6 +18,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogLayout />}>
+            <Route path="" element={<BlogLists />} />
             <Route path="edit" element={<BlogEdit />} />
           </Route>
           <Route path="/project" element={<ProjectLayout />}></Route>

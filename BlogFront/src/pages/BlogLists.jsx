@@ -1,52 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
+import BlogDetail from "../components/Blog/BlogDetail";
+
+import GetData from "../hooks/GetData";
+import getCategoryName from "../hooks/GetCategory";
+
 const BlogLists = () => {
+  const { data: post, isLoading, isError } = GetData("/blog");
+  const [selectedPost, setSelectedPost] = useState(null);
+
+  if (isLoading) return <Container>로딩 중 입니다.</Container>;
+  if (isError) return <Container>에러 발생..</Container>;
+
+  const handleSelect = (it) => {
+    setSelectedPost(it);
+  };
+
   return (
     <Container>
-      <Header>
-        <HeaderTitle>All Posts</HeaderTitle>
-        <HeaderLink href="#">12 Posts Found</HeaderLink>
-      </Header>
+      {selectedPost ? (
+        <BlogDetail blog={selectedPost} onClose={() => setSelectedPost(null)} />
+      ) : (
+        <>
+          <Header>
+            <HeaderTitle>All Posts</HeaderTitle>
+            <HeaderLink href="#">{post.data?.length} Posts Found</HeaderLink>
+          </Header>
 
-      <Post>
-        <PostCategory>FrontEnd / REACT</PostCategory>
-        <PostTitle>UseEffect란 무엇일까?</PostTitle>
-        <PostDescription>
-          UseEffect란 React에서 다루는 수많은 hook 중에 하나로...
-        </PostDescription>
-        <PostDate>2024.12.20</PostDate>
-      </Post>
-
-      <Post>
-        <PostCategory>FrontEnd / REACT</PostCategory>
-        <PostTitle>Context API에 대해 알아보자</PostTitle>
-        <PostDescription>
-          전역 변수처럼 데이터를 다루고 싶을 때 사용하는 방법으로...
-        </PostDescription>
-        <PostDate>2024.12.16</PostDate>
-      </Post>
-
-      <Pagination>
-        <PaginationLink href="#">&laquo;</PaginationLink>
-        <PaginationLink href="#">1</PaginationLink>
-        <PaginationLink href="#" className="active">
-          2
-        </PaginationLink>
-        <PaginationLink href="#">3</PaginationLink>
-        <PaginationLink href="#">4</PaginationLink>
-        <PaginationLink href="#">5</PaginationLink>
-        <PaginationLink href="#">&raquo;</PaginationLink>
-      </Pagination>
+          {post.data?.map((it) => (
+            <Post onClick={() => handleSelect(it)}>
+              <PostCategory>{getCategoryName(it.category)}</PostCategory>
+              <PostTitle>{it.title}</PostTitle>
+              <PostDescription>{it.content}</PostDescription>
+              <PostDate>{it.dateat}</PostDate>
+            </Post>
+          ))}
+        </>
+      )}
     </Container>
   );
 };
 
 const Container = styled.div`
-  max-width: 800px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
 `;
 
 const Header = styled.div`
@@ -62,7 +61,6 @@ const HeaderTitle = styled.h1`
 `;
 
 const HeaderLink = styled.a`
-  color: #007bff;
   text-decoration: none;
 `;
 
@@ -95,22 +93,6 @@ const PostDate = styled.div`
   font-size: 12px;
   color: #aaa;
   margin-top: 10px;
-`;
-
-const Pagination = styled.div`
-  text-align: center;
-  margin-top: 20px;
-`;
-
-const PaginationLink = styled.a`
-  margin: 0 5px;
-  text-decoration: none;
-  color: #007bff;
-
-  &.active {
-    font-weight: bold;
-    color: #333;
-  }
 `;
 
 export default BlogLists;

@@ -63,6 +63,7 @@ const BlogSidebar = () => {
           {categories.map((category) => (
             <React.Fragment key={category.id}>
               <CategoryItem
+                isSelected={selectedCategory === category.id}
                 onClick={
                   category.subCategories
                     ? () => toggleExpand(category.name)
@@ -79,6 +80,7 @@ const BlogSidebar = () => {
                   {category.subCategories.map((subCategory) => (
                     <SubCategoryItem
                       key={subCategory.id}
+                      isSelected={selectedCategory === subCategory.id}
                       onClick={() => setCategory(subCategory.id)}
                     >
                       {subCategory.name}
@@ -153,6 +155,7 @@ const CategoryItem = styled.li`
   padding-top: 5px;
   cursor: pointer;
   color: #333;
+  font-weight: ${(props) => (props.isSelected ? "bold" : "normal")};
   &:hover {
     color: #1e90ff;
     font-weight: bold;
@@ -170,6 +173,7 @@ const SubCategoryItem = styled.li`
   padding-top: 5px;
   cursor: pointer;
   color: #666;
+  font-weight: ${(props) => (props.isSelected ? "bold" : "normal")};
   &:hover {
     color: #1e90ff;
   }

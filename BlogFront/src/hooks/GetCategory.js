@@ -1,5 +1,7 @@
 const getCategoryName = (category) => {
   switch (category) {
+    case "0":
+      return "All";
     case "1":
       return "Language - C/C++";
     case "2":

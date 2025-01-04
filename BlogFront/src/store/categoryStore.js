@@ -4,9 +4,9 @@ import { persist } from "zustand/middleware";
 const useCategoryStore = create(
   persist(
     (set) => ({
-      selectedCategory: "0",
+      selectedCategory: "All",
 
-      setCategory: (categoryId) => set({ selectedCategory: categoryId }),
+      setCategory: (categoryName) => set({ selectedCategory: categoryName }),
 
       clearCategory: () => set({ selectedCategory: null }),
     }),

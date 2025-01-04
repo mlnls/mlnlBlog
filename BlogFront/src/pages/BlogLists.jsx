@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 import BlogDetail from "../components/Blog/BlogDetail";
@@ -6,16 +6,32 @@ import BlogDetail from "../components/Blog/BlogDetail";
 import GetData from "../hooks/GetData";
 import getCategoryName from "../hooks/GetCategory";
 
+import useCategoryStore from "../store/categoryStore";
+
 const BlogLists = () => {
   const { data: post, isLoading, isError } = GetData("/blog");
   const [selectedPost, setSelectedPost] = useState(null);
+  const [filteredPost, setFilteredPost] = useState([]);
 
-  if (isLoading) return <Container>로딩 중 입니다.</Container>;
-  if (isError) return <Container>에러 발생..</Container>;
+  const { selectedCategory } = useCategoryStore();
+
+  useEffect(() => {
+    if (!post?.data) return;
+    let result = post.data;
+
+    if (selectedCategory !== "0") {
+      result = result.filter((it) => it.category === selectedCategory);
+    }
+
+    setFilteredPost(result);
+  }, [post, selectedCategory]);
 
   const handleSelect = (it) => {
     setSelectedPost(it);
   };
+
+  if (isLoading) return <Container>로딩 중 입니다.</Container>;
+  if (isError) return <Container>에러 발생..</Container>;
 
   return (
     <Container>
@@ -24,11 +40,11 @@ const BlogLists = () => {
       ) : (
         <>
           <Header>
-            <HeaderTitle>All Posts</HeaderTitle>
-            <HeaderLink href="#">{post.data?.length} Posts Found</HeaderLink>
+            <HeaderTitle>{getCategoryName(selectedCategory)} Posts</HeaderTitle>
+            <HeaderLink href="#">{filteredPost?.length} Posts Found</HeaderLink>
           </Header>
 
-          {post.data?.map((it) => (
+          {filteredPost?.map((it) => (
             <Post onClick={() => handleSelect(it)}>
               <PostCategory>{getCategoryName(it.category)}</PostCategory>
               <PostTitle>{it.title}</PostTitle>

@@ -6,9 +6,13 @@ import BlogDetail from "../components/Blog/BlogDetail";
 import GetData from "../hooks/GetData";
 import getCategoryName from "../hooks/GetCategory";
 
+import useCategoryStore from "../store/categoryStore";
+
 const BlogLists = () => {
   const { data: post, isLoading, isError } = GetData("/blog");
   const [selectedPost, setSelectedPost] = useState(null);
+
+  const { selectedCategory, setCategory } = useCategoryStore();
 
   if (isLoading) return <Container>로딩 중 입니다.</Container>;
   if (isError) return <Container>에러 발생..</Container>;

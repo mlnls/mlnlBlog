@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import BlogDetail from "../components/Blog/BlogDetail";
+import BlogDetail from "./BlogDetail";
 
-import GetData from "../hooks/GetData";
-import getCategoryName from "../hooks/GetCategory";
+import GetData from "../../hooks/GetData";
+import getCategoryName from "../../hooks/GetCategory";
 
-import useCategoryStore from "../store/categoryStore";
+import useCategoryStore from "../../store/categoryStore";
 
 const BlogLists = () => {
   const { data: post, isLoading, isError } = GetData("/blog");
@@ -41,7 +41,7 @@ const BlogLists = () => {
         <>
           <Header>
             <HeaderTitle>{getCategoryName(selectedCategory)} Posts</HeaderTitle>
-            <HeaderLink href="#">{filteredPost?.length} Posts Found</HeaderLink>
+            <HeaderSpan>{filteredPost?.length} Posts Found</HeaderSpan>
           </Header>
 
           {filteredPost?.map((it) => (
@@ -76,7 +76,7 @@ const HeaderTitle = styled.h1`
   margin: 0;
 `;
 
-const HeaderLink = styled.a`
+const HeaderSpan = styled.span`
   text-decoration: none;
 `;
 

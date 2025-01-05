@@ -34,7 +34,6 @@ const BlogEdit = () => {
       return;
     }
 
-    // SweetAlert2로 카테고리 선택
     const { value: selectedCategory } = await Swal.fire({
       title: "Select a category",
       input: "select",

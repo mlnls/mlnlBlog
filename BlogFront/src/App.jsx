@@ -4,8 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import IntroPage from "./pages/IntroPage";
 
-import BlogEdit from "./pages/BlogEdit";
-import BlogLists from "./pages/BlogLists";
+import BlogEdit from "./pages/Blog/BlogEdit";
+import BlogLists from "./pages/Blog/BlogLists";
 
 import BlogLayout from "./layout/BlogLayout";
 import ProjectLayout from "./layout/ProjectLayout";

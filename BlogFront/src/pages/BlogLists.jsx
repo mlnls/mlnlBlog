@@ -41,7 +41,7 @@ const BlogLists = () => {
         <>
           <Header>
             <HeaderTitle>{getCategoryName(selectedCategory)} Posts</HeaderTitle>
-            <HeaderLink href="#">{filteredPost?.length} Posts Found</HeaderLink>
+            <HeaderSpan>{filteredPost?.length} Posts Found</HeaderSpan>
           </Header>
 
           {filteredPost?.map((it) => (
@@ -76,7 +76,7 @@ const HeaderTitle = styled.h1`
   margin: 0;
 `;
 
-const HeaderLink = styled.a`
+const HeaderSpan = styled.span`
   text-decoration: none;
 `;
 

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
-import BlogDetail from "../components/Blog/BlogDetail";
+import BlogDetail from "./BlogDetail";
 
-import GetData from "../hooks/GetData";
-import getCategoryName from "../hooks/GetCategory";
+import GetData from "../../hooks/GetData";
+import getCategoryName from "../../hooks/GetCategory";
 
-import useCategoryStore from "../store/categoryStore";
+import useCategoryStore from "../../store/categoryStore";
 
 const BlogLists = () => {
   const { data: post, isLoading, isError } = GetData("/blog");

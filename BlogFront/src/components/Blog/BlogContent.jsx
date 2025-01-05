@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+
 import { marked } from "marked";
 
-const BlogDetail = ({ blog }) => {
+const BlogContent = ({ blog }) => {
   const [headings, setHeadings] = useState([]);
   const [activeHeading, setActiveHeading] = useState(null);
+
+  const parsedContent = marked(blog.content);
 
   useEffect(() => {
     const parser = new DOMParser();
@@ -29,7 +32,7 @@ const BlogDetail = ({ blog }) => {
     setHeadings(extractedHeadings);
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 150;
+      const scrollPosition = window.scrollY + 150; // Offset for header
       let currentHeading = null;
 
       extractedHeadings.forEach((heading) => {
@@ -49,8 +52,6 @@ const BlogDetail = ({ blog }) => {
     };
   }, [blog.content]);
 
-  const parsedContent = marked(blog.content);
-
   const handleScrollTo = (id) => {
     const targetElement = document.getElementById(id);
     if (targetElement) {
@@ -59,62 +60,35 @@ const BlogDetail = ({ blog }) => {
   };
 
   return (
-    <Container>
-      <Header>
-        <Date>{blog.dateat}</Date>
-        <Title>{blog.title}</Title>
-      </Header>
-      <ContentWrapper>
-        <Content dangerouslySetInnerHTML={{ __html: parsedContent }} />
-        <SidebarWrapper>
-          <Sidebar>
-            <SidebarTitle>Contents</SidebarTitle>
-            <SidebarList>
-              {headings.map((heading, index) => (
-                <SidebarItem
-                  key={index}
-                  onClick={() => handleScrollTo(heading.id)}
-                  active={activeHeading === heading.id}
-                >
-                  {heading.level === "H1" && (
-                    <SidebarLinkH1>{heading.text}</SidebarLinkH1>
-                  )}
-                  {heading.level === "H2" && (
-                    <SidebarLinkH2>{heading.text}</SidebarLinkH2>
-                  )}
-                  {heading.level === "H3" && (
-                    <SidebarLinkH3>{heading.text}</SidebarLinkH3>
-                  )}
-                </SidebarItem>
-              ))}
-            </SidebarList>
-          </Sidebar>
-        </SidebarWrapper>
-      </ContentWrapper>
-    </Container>
+    <ContentWrapper>
+      <Content dangerouslySetInnerHTML={{ __html: parsedContent }} />
+      <SidebarWrapper>
+        <Sidebar>
+          <SidebarTitle>Contents</SidebarTitle>
+          <SidebarList>
+            {headings.map((heading, index) => (
+              <SidebarItem
+                key={index}
+                onClick={() => handleScrollTo(heading.id)}
+                active={activeHeading === heading.id}
+              >
+                {heading.level === "H1" && (
+                  <SidebarLinkH1>{heading.text}</SidebarLinkH1>
+                )}
+                {heading.level === "H2" && (
+                  <SidebarLinkH2>{heading.text}</SidebarLinkH2>
+                )}
+                {heading.level === "H3" && (
+                  <SidebarLinkH3>{heading.text}</SidebarLinkH3>
+                )}
+              </SidebarItem>
+            ))}
+          </SidebarList>
+        </Sidebar>
+      </SidebarWrapper>
+    </ContentWrapper>
   );
 };
-
-const Container = styled.div`
-  padding: 20px;
-  line-height: 1.6;
-  color: #333;
-`;
-
-const Header = styled.div`
-  margin-bottom: 20px;
-`;
-
-const Title = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-`;
-
-const Date = styled.p`
-  font-size: 1rem;
-  color: #7b7b7b;
-  margin-bottom: 2rem;
-`;
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -180,4 +154,4 @@ const Content = styled.div`
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 `;
 
-export default BlogDetail;
+export default BlogContent;

@@ -193,7 +193,7 @@ const PreviewTitle = styled.div`
 
 const Preview = styled.div`
   width: 100%;
-  height: auto;
+  height: 100px;
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 5px;

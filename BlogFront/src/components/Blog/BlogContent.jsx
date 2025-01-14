@@ -32,7 +32,7 @@ const BlogContent = ({ blog }) => {
     setHeadings(extractedHeadings);
 
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 150; // Offset for header
+      const scrollPosition = window.scrollY + 150;
       let currentHeading = null;
 
       extractedHeadings.forEach((heading) => {

@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import cloudinaryUpload from "../api/cloudinaryUpload";
 
 const HomePage = () => {
   const navigate = useNavigate();
+
+  const handleImageChange = (e) =>
+    cloudinaryUpload.uploadImage(e.target.files[0]);
 
   return (
     <Container>
@@ -18,6 +22,14 @@ const HomePage = () => {
             <Button>GitHub</Button>
             <Button onClick={() => navigate("/project")}>Project</Button>
           </Buttons>
+          <label htmlFor="input-image">이미지 추가</label>
+          <p>사진을 업로드 해주세요</p>
+          <input
+            id="input-image"
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
         </TextWrapper>
       </Card>
     </Container>

@@ -178,7 +178,7 @@ const TitleContainer = styled.div`
   height: 10%;
   display: flex;
   flex-direction: row;
-  padding: 0 0 20px 0;
+  margin: 0 0 20px 0;
   box-sizing: border-box;
 `;
 
@@ -236,7 +236,7 @@ const PreviewTitle = styled.div`
 
 const Preview = styled.div`
   width: 100%;
-  height: auto;
+  height: 100px;
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 5px;

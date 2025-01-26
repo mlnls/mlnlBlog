@@ -5,6 +5,8 @@ import styled from "styled-components";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import uploadToCloudinary from "../../hooks/uploadToCloud";
+
 const BlogEdit = () => {
   const [content, setContent] = useState("");
   const [title, setTitle] = useState("");
@@ -26,6 +28,47 @@ const BlogEdit = () => {
 
   const convertContent = () => {
     return { __html: marked.parse(content) };
+  };
+
+  // const handleInput = (e) => {
+  //   const text = e.target.innerText;
+  //   setContent(text);
+
+  //   const formatted = text
+  //     .replace(/^### (.*$)/gm, `<h3>$1</h3>`) // H3
+  //     .replace(/^## (.*$)/gm, `<h2>$1</h2>`) // H2
+  //     .replace(/^# (.*$)/gm, `<h1>$1</h1>`) // H1
+  //     .replace(/\*\*(.*?)\*\*/g, `<strong>$1</strong>`) // Bold
+  //     .replace(/\*(.*?)\*/g, `<em>$1</em>`); // Italic
+
+  //   setContent(formatted);
+  //   e.target.innerHTML = formatted;
+  //   placeCaretAtEnd(e.target);
+  // };
+
+  // const placeCaretAtEnd = (el) => {
+  //   const range = document.createRange();
+  //   const sel = window.getSelection();
+  //   range.selectNodeContents(el);
+  //   range.collapse(false);
+  //   sel.removeAllRanges();
+  //   sel.addRange(range);
+  // };
+
+  const handlePaste = async (event) => {
+    const items = event.clipboardData.items;
+
+    // 클립보드에 있는 데이터 중 이미지 확인
+    for (const item of items) {
+      if (item.type.startsWith("image/")) {
+        const file = item.getAsFile();
+        const imageUrl = await uploadToCloudinary(file); // Cloudinary에 업로드
+
+        // 이미지 URL을 마크다운 형식으로 추가
+        const imageMarkdown = `\n![Image Description](${imageUrl})\n`;
+        setContent((prev) => prev + imageMarkdown);
+      }
+    }
   };
 
   const handleClick = async (e) => {
@@ -94,9 +137,10 @@ const BlogEdit = () => {
           />
         </TitleContainer>
         <TextArea
-          placeholder="Enter your Content here..."
+          placeholder="Enter your Text here..."
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          onPaste={handlePaste}
         />
         <SubmitButton onClick={(e) => handleClick(e.target.value)}>
           Submit
@@ -151,7 +195,6 @@ const TextArea = styled.textarea`
   width: 95%;
   height: 100%;
   padding: 15px;
-  resize: none;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;

@@ -64,6 +64,8 @@ const BlogEdit = () => {
         const file = item.getAsFile();
         const imageUrl = await uploadToCloudinary(file); // Cloudinary에 업로드
 
+        console.log(file);
+
         // 이미지 URL을 마크다운 형식으로 추가
         const imageMarkdown = `\n![Image Description](${imageUrl})\n`;
         setContent((prev) => prev + imageMarkdown);

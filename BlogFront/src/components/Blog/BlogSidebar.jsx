@@ -98,7 +98,7 @@ const BlogSidebar = () => {
 
 const Side = styled.div`
   width: 260px;
-  height: 93vh;
+  max-height: 835px;
   background-color: #f0efef;
   border: solid;
   border-width: 0 2px 0 0;
@@ -108,7 +108,6 @@ const Side = styled.div`
 `;
 
 const ImageContainer = styled.div`
-  height: 33%;
   border: solid;
   border-width: 0 0 2px 0;
   justify-items: center;

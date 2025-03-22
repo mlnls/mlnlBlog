@@ -98,6 +98,7 @@ const BlogSidebar = () => {
 
 const Side = styled.div`
   width: 260px;
+  max-height: 835px;
   background-color: #f0efef;
   border: solid;
   border-width: 0 2px 0 0;

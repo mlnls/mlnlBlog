@@ -8,7 +8,7 @@ const BlogList = ({ item, handleSelect }) => {
     <Post onClick={() => handleSelect(item)}>
       <PostCategory>{getCategoryName(item.category)}</PostCategory>
       <PostTitle>{item.title}</PostTitle>
-      <PostDescription>{item.content}</PostDescription>
+      <PostDescription>{item.content.slice(0, 200)}...</PostDescription>
       <PostDate>{item.dateat}</PostDate>
     </Post>
   );
